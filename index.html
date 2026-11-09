@@ -2,349 +2,466 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Controle Financeiro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Anote seus gastos em segundos, lance parcelas de uma vez e defina tetos por categoria. R$ 19,90 no primeiro mês, depois R$ 29,90 por mês.">
-<meta name="theme-color" content="#0B2B20">
+<title>Controle Financeiro</title>
+<meta name="description" content="Saiba pra onde vai cada real do seu salário. Anote gastos em segundos, parcelas automáticas e tetos por categoria. R$ 29,90 em pagamento único, sem mensalidade.">
+<meta name="theme-color" content="#040b27">
+<meta property="og:title" content="Controle Financeiro: saiba pra onde vai cada real do seu salário">
+<meta property="og:description" content="Pagamento único de R$ 29,90. Sem mensalidade. 7 dias de garantia.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230B2B20'/%3E%3Cpath d='M355.6 172.4A130 130 0 1 0 355.6 339.6' fill='none' stroke='%23FFD84D' stroke-width='44' stroke-linecap='round'/%3E%3Crect x='205' y='256' width='26' height='40' rx='8' fill='%23EAF3EE'/%3E%3Crect x='243' y='224' width='26' height='72' rx='8' fill='%23EAF3EE'/%3E%3Crect x='281' y='188' width='26' height='108' rx='8' fill='%232EE59D'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-body{margin:0}
-a{color:inherit;text-decoration:none}
-.cta:hover{filter:brightness(.95)}
-summary{cursor:pointer;list-style:none}
-summary::-webkit-details-marker{display:none}
-details[open] .plus{transform:rotate(45deg)}
+:root{--bg:#040b27;--bg2:#07154f;--card:#0a1533;--card2:#0e1c42;--line:#1c2c5c;--tx:#eaf1ff;--mut:#a8b7da;--gold:#ffd84d;--mint:#2EE59D;--mint2:#5cf2b8;--navy:#04163f;--rose:#fb7185;--amber:#f59e0b;--blue:#3b82f6}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:10px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:88px 0;position:relative}
+h2{font-weight:800;letter-spacing:-.028em;line-height:1.08;font-size:clamp(28px,4.2vw,46px);text-wrap:balance}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.lead{color:var(--mut);font-size:19px;max-width:620px;margin-top:16px}
+.center{text-align:center}.center .lead{margin-left:auto;margin-right:auto}
+
+/* botão */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:16px 30px;border-radius:16px;font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-.01em;font-size:19px;text-align:center;
+  background:linear-gradient(180deg,var(--mint2),var(--mint));color:var(--navy);box-shadow:0 6px 0 #12805C,0 18px 34px rgba(0,0,0,.45);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 #12805C,0 22px 38px rgba(0,0,0,.5)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #12805C,0 8px 16px rgba(0,0,0,.4)}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.big{font-size:22px;min-height:66px;padding:18px 36px}
+@media (prefers-reduced-motion:no-preference){
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{
+    0%,100%{box-shadow:0 6px 0 #12805C,0 18px 34px rgba(0,0,0,.45),0 0 0 0 rgba(46,229,157,.55)}
+    50%{box-shadow:0 6px 0 #12805C,0 18px 34px rgba(0,0,0,.45),0 0 0 14px rgba(46,229,157,0)}
+  }
+}
+
+/* topo */
+.top{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px;letter-spacing:-.01em}
+.brand svg{width:40px;height:40px;filter:drop-shadow(0 0 8px rgba(250,204,21,.55))}
+.top .mini{font-size:14px;font-weight:800;padding:10px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.4)}
+.top .mini:hover{background:rgba(255,255,255,.1)}
+
+/* hero */
+.hero{padding:0 0 96px;background:radial-gradient(ellipse 90% 75% at 50% -5%,#2563eb 0%,#1239a8 30%,#07154f 62%,var(--bg) 100%);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 0%,rgba(125,180,255,.12) 0 6deg,transparent 6deg 14deg);
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 0%,#000,transparent 85%);mask-image:radial-gradient(ellipse 80% 80% at 50% 0%,#000,transparent 85%)}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.12fr .88fr;gap:56px;align-items:center;padding-top:36px}
+.hero-grid>*{min-width:0}
+.chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,216,77,.14);border:1px solid rgba(255,216,77,.5);color:var(--gold);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+h1{margin-top:20px;font-weight:900;font-style:italic;line-height:.98;letter-spacing:-.035em;font-size:clamp(36px,4.7vw,60px)}
+h1 span{display:block;width:fit-content;max-width:100%;-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+h1 .gold{background-image:linear-gradient(180deg,#fff7c2 0%,#ffe066 30%,#f5b301 62%,#c77700 100%);
+  filter:drop-shadow(0 .012em 0 #8a5300) drop-shadow(0 .025em 0 #7a4a00) drop-shadow(0 .04em 0 #6b4000) drop-shadow(0 .055em 0 #5a3500) drop-shadow(0 .1em .09em rgba(0,0,0,.65))}
+h1 .white{background-image:linear-gradient(180deg,#fff 0%,#e0f2fe 55%,#93c5fd 100%);white-space:normal;
+  filter:drop-shadow(0 0 .09em rgba(56,189,248,.8)) drop-shadow(0 .03em 0 #0b2a8a) drop-shadow(0 .055em 0 #071a5e) drop-shadow(0 .1em .09em rgba(0,0,0,.6))}
+.hero p.sub{margin-top:22px;font-size:20px;color:#d3e0ff;max-width:560px}
+.hero p.sub b{color:var(--gold)}
+.ticks{list-style:none;margin:24px 0 30px;display:grid;gap:10px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-weight:600;color:#e6eeff}
+.ticks li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--mint);color:var(--navy);font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.micro{margin-top:16px;font-size:14px;color:var(--mut);font-weight:500}
+.micro b{color:#fff}
+
+/* app mock */
+.mockwrap{position:relative;font-size:min(16px,calc((100vw - 40px) / 28));justify-self:center;width:100%;display:flex;justify-content:center}
+.mock{width:28em;max-width:100%;background:#0b1224;border:.07em solid #26324d;border-radius:1.1em;padding:1.1em;color:#f1f5f9;box-shadow:0 1.5em 3em rgba(0,0,0,.55),0 0 0 .18em rgba(96,165,250,.3);transform:rotate(1.5deg)}
+.mh{display:flex;justify-content:space-between;align-items:center;font-size:.7em;font-weight:800;letter-spacing:.04em;color:#cbd5e1;margin-bottom:1em}
+.mh span:first-child{display:flex;align-items:center;gap:.5em}
+.mh i{display:block;width:1.5em;height:1.5em;border-radius:.45em;background:rgba(99,102,241,.25);border:1px solid rgba(99,102,241,.5)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.6em}
+.tile{background:#0f1a33;border:.06em solid #26324d;border-radius:.7em;padding:.7em}
+.tile i{display:block;font-style:normal;font-size:.62em;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#94a3b8}
+.tile b{display:block;font-family:'JetBrains Mono',monospace;font-size:.86em;letter-spacing:-.06em;margin-top:.3em;white-space:nowrap}
+.tile.g i,.tile.g b{color:#34d399}.tile.r i,.tile.r b{color:#fb7185}
+.mbody{display:grid;grid-template-columns:auto 1fr;gap:1.3em;margin-top:1.1em;align-items:start}
+.donut{position:relative;width:7em;height:7em;border-radius:50%;margin:0 auto;background:conic-gradient(#3b82f6 0 60.2%,#f59e0b 60.2% 85.6%,#f43f5e 85.6% 97.6%,#10b981 97.6% 100%)}
+.donut u{position:absolute;inset:1.9em;border-radius:50%;background:#0b1224}
+.leg{display:grid;grid-template-columns:1fr 1fr;gap:.35em .7em;margin-top:.8em;font-size:.62em;color:#cbd5e1}
+.leg div{display:flex;align-items:center;gap:.4em;white-space:nowrap}
+.leg b{width:.8em;height:.8em;border-radius:.2em;display:block}
+.bars{display:flex;flex-direction:column;gap:.95em;padding-top:.2em}
+.bars h4{font-size:.68em;font-weight:800;color:#e2e8f0}
+.bar .r{display:flex;justify-content:space-between;font-size:.66em;font-weight:700;margin-bottom:.35em}
+.bar .r span:last-child{font-family:'JetBrains Mono',monospace}
+.bar .t{height:.62em;border-radius:99px;background:#26324d;overflow:hidden}
+.bar .t div{height:100%}
+.pricetag{position:absolute;right:0;bottom:-30px;transform:rotate(5deg);background:linear-gradient(180deg,#ffe46b,#ffc400);color:#07154f;border-radius:18px;padding:12px 22px 14px;text-align:center;box-shadow:0 5px 0 #b57d00,0 16px 28px rgba(0,0,0,.5);font-size:16px}
+.pricetag small{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.pricetag strong{display:block;font-weight:900;font-size:36px;letter-spacing:-.04em;line-height:1.05}
+
+/* faixa de confiança */
+.trust{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0}
+.trust ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:12px 26px;font-size:14.5px;font-weight:700;color:#d3e0ff}
+.trust li{display:flex;align-items:center;gap:10px}
+.trust li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
+
+/* dor */
+.pains{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.pain{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 22px}
+.pain i{display:flex;width:34px;height:34px;border-radius:10px;background:rgba(251,113,133,.15);color:var(--rose);font-style:normal;font-weight:900;align-items:center;justify-content:center;margin-bottom:16px}
+.pain h3{font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.2;margin-bottom:8px}
+.pain p{color:var(--mut);font-size:15.5px}
+
+/* custo */
+.cost{background:linear-gradient(180deg,var(--bg),#06133f 50%,var(--bg))}
+.cost-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.cost .note{font-size:14px;color:#7f92c0;margin-top:18px}
+.nums{display:flex;flex-direction:column}
+.nums div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
+.nums div:last-child{border-bottom:1px solid var(--line)}
+.nums span{color:var(--mut);font-weight:600}
+.nums b{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:32px;letter-spacing:-.04em}
+.nums div:last-child span{color:var(--gold)}.nums div:last-child b{color:var(--gold);font-size:42px}
+
+/* recursos */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.feat{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;padding:28px 24px}
+.feat .ic{width:48px;height:48px;border-radius:14px;background:rgba(255,216,77,.12);border:1px solid rgba(255,216,77,.4);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.feat .ic svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:20px;font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
+.feat p{color:var(--mut);font-size:15.5px}
+
+/* passos */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px;counter-reset:s}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 24px 26px;counter-increment:s}
+.step::before{content:"Passo " counter(s);display:block;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mint);margin-bottom:12px}
+.step h3{font-size:22px;font-weight:800;letter-spacing:-.015em;margin-bottom:6px}
+.step p{color:var(--mut);font-size:15.5px}
+
+/* comparativo */
+.tablebox{margin-top:44px;overflow-x:auto;border-radius:22px;border:1px solid var(--line);background:var(--card)}
+table{width:100%;min-width:720px;border-collapse:collapse;font-size:15.5px}
+th,td{padding:18px 20px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td,tr:last-child th{border-bottom:0}
+thead th{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:800}
+tbody th{font-weight:700;color:#fff;width:23%}
+td{color:var(--mut)}
+th.us,td.us{background:rgba(255,216,77,.13);color:#fff;font-weight:700}
+thead th.us{color:var(--gold);box-shadow:inset 0 3px 0 var(--gold)}
+td.us::before{content:"✓ ";color:var(--mint);font-weight:900}
+
+/* oferta */
+.offer{background:radial-gradient(ellipse 70% 70% at 50% 0%,#12338f 0%,var(--bg) 75%)}
+.offer-card{max-width:860px;margin:44px auto 0;background:linear-gradient(180deg,#0e1f55,#091433);border:2px solid var(--gold);border-radius:30px;padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:40px;box-shadow:0 0 0 8px rgba(255,216,77,.08),0 30px 70px rgba(0,0,0,.55)}
+.offer-card .price small{display:block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.offer-card .price strong{display:block;font-weight:900;font-size:clamp(56px,9vw,84px);letter-spacing:-.045em;line-height:1.02;margin:8px 0 4px}
+.offer-card .price span{display:block;color:var(--mut);font-weight:600;margin-bottom:26px}
+.offer-card .btn{width:100%}
+.offer-card .fine{margin-top:16px;font-size:13.5px;color:var(--mut);text-align:center}
+.checks{list-style:none;display:grid;gap:13px;align-content:start}
+.checks li{display:flex;gap:12px;align-items:flex-start;font-weight:600;color:#e6eeff;font-size:16.5px}
+.checks li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--mint);color:var(--navy);font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+/* garantia */
+.guar{max-width:860px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:36px}
+.seal{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe46b,#f5b301 70%);color:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 0 0 6px rgba(255,216,77,.18),0 12px 24px rgba(0,0,0,.45)}
+.seal b{font-weight:900;font-size:44px;line-height:1;letter-spacing:-.04em}
+.seal small{font-weight:900;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.guar h2{font-size:clamp(24px,3.4vw,34px)}
+.guar p{color:var(--mut);margin-top:10px}
+
+/* faq */
+.faq{max-width:820px;margin:40px auto 0}
+details{border-top:1px solid var(--line);padding:4px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:700;font-size:18px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:28px;line-height:1;color:var(--gold);flex:none;transition:transform .15s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mut);padding:0 0 22px;max-width:700px}
+
+/* final */
+.final{text-align:center;background:radial-gradient(ellipse 80% 90% at 50% 100%,#2563eb 0%,#0f2e8c 35%,var(--bg) 78%);overflow:hidden}
+.final h2{font-size:clamp(30px,5vw,56px);font-weight:900;font-style:italic;max-width:860px;margin:0 auto}
+.final h2 em{font-style:italic;color:var(--gold)}
+.final .lead{margin:18px auto 34px}
+footer{padding:34px 0 40px;border-top:1px solid var(--line);font-size:14px;color:#8ea0cc}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
+
+/* barra fixa no celular */
+.sticky{display:none}
+
+@media (max-width:960px){
+  .hero-grid,.cost-grid{grid-template-columns:1fr;gap:44px}
+  .pains{grid-template-columns:repeat(2,1fr)}
+  .feats{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr}
+  .offer-card{grid-template-columns:1fr;padding:34px 26px}
+  .mockwrap{padding-bottom:30px}
+}
+@media (max-width:720px){
+  body{font-size:16px;padding-bottom:84px}
+  section{padding:64px 0}
+  .hero{padding-bottom:72px}
+  .lead,.hero p.sub{font-size:17.5px}
+  .btn,.btn.big{width:100%;font-size:18px;padding:16px 18px}
+  .top .mini{display:none}
+  .pains,.feats{grid-template-columns:1fr}
+  .guar{grid-template-columns:1fr;text-align:center;padding:28px 22px}
+  .seal{margin:0 auto}
+  .pricetag{right:4px;bottom:-20px;transform:rotate(4deg) scale(.9)}
+  .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(4,11,39,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .sticky div{line-height:1.15}
+  .sticky small{display:block;font-size:11.5px;color:var(--mut);font-weight:600}
+  .sticky strong{font-size:22px;font-weight:900;letter-spacing:-.03em}
+  .sticky .btn{width:auto;min-height:48px;padding:12px 20px;font-size:15px;box-shadow:0 4px 0 #12805C}
+}
 </style>
 </head>
 <body>
 
-<div style="width:100%;background:#EEF2EF;color:#0F1B17;font-family:'Instrument Sans',system-ui,sans-serif;font-size:18px;line-height:1.55">
-
-  <!-- TOPO + HERO -->
-  <div style="padding:28px 0 96px">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:72px">
-
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:40px;height:40px;border-radius:12px;background:#0B2B20;display:flex;align-items:center;justify-content:center">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD84D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V10M10 19V5M16 19v-7M21 19H3"/></svg>
-          </div>
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.01em">Controle Financeiro</div>
-        </div>
-        <a href="#preco" style="font-weight:600;font-size:15px;padding:10px 18px;border:1.5px solid #0F1B17;border-radius:999px">Quero o meu</a>
+<!-- TOPO + HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#071a5e"/><rect x="10" y="10" width="492" height="492" rx="104" fill="none" stroke="#60a5fa" stroke-width="14"/><path d="M355.6 172.4 A130 130 0 1 0 355.6 339.6" fill="none" stroke="#FFD84D" stroke-width="44" stroke-linecap="round"/><rect x="205" y="256" width="26" height="40" rx="8" fill="#EAF3EE"/><rect x="243" y="224" width="26" height="72" rx="8" fill="#EAF3EE"/><rect x="281" y="188" width="26" height="108" rx="8" fill="#2EE59D"/></svg>
+        <span>Controle Financeiro</span>
       </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:center">
-        <div style="flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:28px">
-          <div style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#12805C">App de controle de gastos pessoais</div>
-          <h1 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-0.03em;text-wrap:balance">Chega de chegar no dia 25 sem saber onde o salário foi.</h1>
-          <p style="margin:0;font-size:20px;color:#3E4E47;max-width:560px">O Controle Financeiro anota seus gastos em segundos, divide as parcelas sozinho e avisa quando você chega perto do limite. No celular ou no computador, sem planilha.</p>
-          <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
-            <a class="cta" href="https://pay.kiwify.com.br/lRpdYeL" style="display:inline-flex;align-items:center;gap:12px;background:#FFD84D;color:#0F1B17;font-weight:700;font-size:19px;padding:18px 28px;border-radius:16px;box-shadow:0 10px 0 -4px #C9A21B;min-height:44px;box-sizing:border-box">Quero controlar meu dinheiro por R$ 19,90 no 1º mês
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B17" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <div style="font-size:15px;color:#4B5B54">1º mês R$ 19,90, depois R$ 29,90 por mês. Cancele quando quiser. 7 dias de garantia.</div>
-          </div>
-        </div>
-
-        <div style="flex:1 1 380px;min-width:0;max-width:520px">
-          <div style="background:#FFFFFF;border:1px solid #D5DED9;border-radius:22px;padding:24px;box-shadow:0 28px 48px -28px rgba(15,27,23,0.4);display:flex;flex-direction:column;gap:18px">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-              <div style="font-size:13px;font-weight:600;color:#4B5B54">Outubro de 2026</div>
-              <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#4B5B54;border:1px solid #CBD6D0;border-radius:999px;padding:3px 10px">Exemplo ilustrativo</div>
-            </div>
-            <div>
-              <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4B5B54">Saldo do período</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:38px;letter-spacing:-0.02em">R$ 2.389,70</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#4B5B54">Entradas R$ 4.800,00 · Saídas R$ 2.410,30</div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600">
-                <div>Alimentação</div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px">R$ 612,40 / R$ 800,00 (77%)</div>
-              </div>
-              <div style="height:10px;border-radius:999px;background:#E2EAE6;overflow:hidden"><div style="width:77%;height:100%;background:#12805C"></div></div>
-            </div>
-            <div style="display:flex;flex-direction:column">
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #E3EAE6;font-size:15px">
-                <div style="min-width:0"><div style="font-weight:600">Salário</div><div style="color:#5A6A63;font-size:13px">05/10 · Salário</div></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap;color:#12805C">+ R$ 4.800,00</div>
-              </div>
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #E3EAE6;font-size:15px">
-                <div style="min-width:0"><div style="font-weight:600">Aluguel</div><div style="color:#5A6A63;font-size:13px">06/10 · Moradia</div></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">- R$ 1.450,00</div>
-              </div>
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #E3EAE6;font-size:15px">
-                <div style="min-width:0"><div style="font-weight:600">Supermercado</div><div style="color:#5A6A63;font-size:13px">09/10 · Alimentação</div></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">- R$ 612,40</div>
-              </div>
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #E3EAE6;font-size:15px">
-                <div style="min-width:0"><div style="font-weight:600">Notebook (2/10)</div><div style="color:#5A6A63;font-size:13px">12/10 · Crédito</div></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">- R$ 289,90</div>
-              </div>
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0 0;border-top:1px solid #E3EAE6;font-size:15px">
-                <div style="min-width:0"><div style="font-weight:600">Cinema</div><div style="color:#5A6A63;font-size:13px">14/10 · Lazer</div></div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">- R$ 58,00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <a class="mini" href="#preco">Quero o meu</a>
     </div>
-  </div>
 
-  <!-- DORES -->
-  <div style="background:#FFFFFF;padding:96px 0">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
-      <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,48px);line-height:1.08;letter-spacing:-0.025em;max-width:720px;text-wrap:balance">Você já conhece essa sensação.</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:48px">
-        <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-0.01em">O salário entra e some.</div>
-          <p style="margin:0;color:#3E4E47">Pix aqui, cartão ali, e quando você olha o saldo já foi. Sem registrar, você só descobre o tamanho do buraco no fim do mês.</p>
-        </div>
-        <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-0.01em">A parcela que você esqueceu.</div>
-          <p style="margin:0;color:#3E4E47">Dez vezes no cartão parece pouco, até somar todas as parcelas abertas. Sem um lugar que mostre mês a mês, elas aparecem como susto.</p>
-        </div>
-        <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-0.01em">A planilha que durou duas semanas.</div>
-          <p style="margin:0;color:#3E4E47">Abrir o arquivo, achar a coluna, ajustar fórmula. Controle que dá trabalho vira controle abandonado.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SOLUÇÃO -->
-  <div style="padding:96px 0">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:88px">
-      <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,48px);line-height:1.08;letter-spacing:-0.025em;max-width:720px;text-wrap:balance">Você anota. O app faz o resto.</h2>
-
-      <!-- Parcelas -->
-      <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
-        <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:16px">
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:32px;line-height:1.1;letter-spacing:-0.02em;text-wrap:balance">Lance a compra parcelada uma vez só.</div>
-          <p style="margin:0;color:#3E4E47">Compra de R$ 2.899,00 em 10x? Você digita uma vez. O app cria as 10 parcelas, uma em cada mês, e fecha os centavos para o total bater certinho.</p>
-        </div>
-        <div style="flex:1 1 380px;min-width:0">
-          <div style="background:#FFFFFF;border:1px solid #D5DED9;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px">
-            <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:14px;font-weight:600">
-              <div style="background:#EEF2EF;border-radius:10px;padding:6px 12px">Notebook</div>
-              <div style="background:#EEF2EF;border-radius:10px;padding:6px 12px">R$ 2.899,00</div>
-              <div style="background:#EEF2EF;border-radius:10px;padding:6px 12px">10x</div>
-            </div>
-            <div style="display:flex;flex-direction:column">
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #E3EAE6;font-size:15px"><div>Notebook (1/10) <span style="color:#5A6A63;font-size:13px">· 05/11/2026</span></div><div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">R$ 289,90</div></div>
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #E3EAE6;font-size:15px"><div>Notebook (2/10) <span style="color:#5A6A63;font-size:13px">· 05/12/2026</span></div><div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">R$ 289,90</div></div>
-              <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #E3EAE6;font-size:15px"><div>Notebook (3/10) <span style="color:#5A6A63;font-size:13px">· 05/01/2027</span></div><div style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">R$ 289,90</div></div>
-              <div style="padding:10px 0 0;border-top:1px solid #E3EAE6;font-size:14px;color:#5A6A63">... e assim até a parcela 10/10. Exemplo ilustrativo.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tetos -->
-      <div style="display:flex;flex-wrap:wrap-reverse;gap:48px;align-items:center">
-        <div style="flex:1 1 380px;min-width:0">
-          <div style="background:#FFFFFF;border:1px solid #D5DED9;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:20px">
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600"><div>Alimentação</div><div style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px">R$ 612,40 / R$ 800,00 (77%)</div></div>
-              <div style="height:10px;border-radius:999px;background:#E2EAE6;overflow:hidden"><div style="width:77%;height:100%;background:#12805C"></div></div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600"><div>Lazer</div><div style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px">R$ 276,00 / R$ 300,00 (92%)</div></div>
-              <div style="height:10px;border-radius:999px;background:#E2EAE6;overflow:hidden"><div style="width:92%;height:100%;background:#E0A100"></div></div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;font-weight:600"><div>Transporte</div><div style="font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;color:#B3202F">R$ 270,00 / R$ 250,00 (100%)</div></div>
-              <div style="height:10px;border-radius:999px;background:#E2EAE6;overflow:hidden"><div style="width:100%;height:100%;background:#C62F3E"></div></div>
-            </div>
-            <div style="font-size:14px;color:#5A6A63">Exemplo ilustrativo. Verde, amarelo perto do teto, vermelho quando passa.</div>
-          </div>
-        </div>
-        <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:16px">
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:32px;line-height:1.1;letter-spacing:-0.02em;text-wrap:balance">Defina um teto e veja a barra encher.</div>
-          <p style="margin:0;color:#3E4E47">Escolha uma categoria e coloque o limite do mês. A barra fica amarela quando você se aproxima e vermelha quando passa. Dá para frear antes, não depois.</p>
-        </div>
-      </div>
-
-      <!-- Gráfico -->
-      <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
-        <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:16px">
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:32px;line-height:1.1;letter-spacing:-0.02em;text-wrap:balance">Veja o mês inteiro em um gráfico.</div>
-          <p style="margin:0;color:#3E4E47">Moradia, mercado, lazer, transporte. O gráfico por categoria mostra quem está comendo o seu salário. Filtre por mês ou categoria, imprima o relatório ou leve tudo para o Excel em CSV.</p>
-        </div>
-        <div style="flex:1 1 380px;min-width:0">
-          <div style="background:#FFFFFF;border:1px solid #D5DED9;border-radius:20px;padding:22px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:center">
-            <div style="position:relative;width:180px;height:180px;border-radius:50%;background:conic-gradient(#3b82f6 0 60.2%, #f59e0b 60.2% 85.6%, #f43f5e 85.6% 97.6%, #10b981 97.6% 100%)" role="img" aria-label="Gráfico de despesas por categoria: moradia 60%, alimentação 25%, crédito 12%, lazer 2%">
-              <div style="position:absolute;inset:34px;border-radius:50%;background:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
-                <div style="font-size:12px;color:#5A6A63">Saídas</div>
-                <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px">R$ 2.410,30</div>
-              </div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
-              <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:12px;border-radius:3px;background:#3b82f6"></div>Moradia · 60%</div>
-              <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:12px;border-radius:3px;background:#f59e0b"></div>Alimentação · 25%</div>
-              <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:12px;border-radius:3px;background:#f43f5e"></div>Crédito · 12%</div>
-              <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:12px;border-radius:3px;background:#10b981"></div>Lazer · 2%</div>
-              <div style="color:#5A6A63;font-size:13px">Exemplo ilustrativo</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Também -->
-      <div style="display:flex;flex-direction:column;gap:20px">
-        <div style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#12805C">Também vem no acesso</div>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:16px;font-weight:500">
-          <div style="border:1.5px solid #B9C7C0;border-radius:999px;padding:9px 18px">Entrar com Google ou e-mail</div>
-          <div style="border:1.5px solid #B9C7C0;border-radius:999px;padding:9px 18px">Dados na nuvem, em qualquer aparelho</div>
-          <div style="border:1.5px solid #B9C7C0;border-radius:999px;padding:9px 18px">Instala na tela do celular como app</div>
-          <div style="border:1.5px solid #B9C7C0;border-radius:999px;padding:9px 18px">Continua abrindo sem internet</div>
-          <div style="border:1.5px solid #B9C7C0;border-radius:999px;padding:9px 18px">Tema claro e escuro</div>
-          <div style="border:1.5px solid #B9C7C0;border-radius:999px;padding:9px 18px">Português, English e Español</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CUSTO DE NÃO CONTROLAR -->
-  <div style="background:#0B2B20;color:#EAF3EE;padding:96px 0">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:56px;align-items:center">
-      <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:20px">
-        <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,48px);line-height:1.08;letter-spacing:-0.025em;text-wrap:balance">Dez reais por dia passam batido. No ano, são R$ 3.600.</h2>
-        <p style="margin:0;color:#B8D0C4;max-width:560px">Um lanche por aplicativo, uma assinatura esquecida, um café na rua. Ninguém sente R$ 10. Todo mundo sente R$ 3.600. O Controle Financeiro custa R$ 19,90 no primeiro mês e R$ 29,90 por mês depois. Evitar só três desses R$ 10 no mês já paga a assinatura.</p>
-        <div style="font-size:14px;color:#8FB09F">Conta de exemplo: R$ 10 x 30 dias = R$ 300 por mês, R$ 300 x 12 = R$ 3.600 por ano.</div>
-      </div>
-      <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 0;border-top:1px solid #2C5645"><div style="color:#B8D0C4">por dia</div><div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:30px">R$ 10</div></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 0;border-top:1px solid #2C5645"><div style="color:#B8D0C4">por mês</div><div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:30px">R$ 300</div></div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:18px 0;border-top:1px solid #2C5645;border-bottom:1px solid #2C5645"><div style="color:#FFD84D;font-weight:600">por ano</div><div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:38px;color:#FFD84D">R$ 3.600</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COMO COMEÇAR -->
-  <div style="padding:96px 0">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
-      <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,48px);line-height:1.08;letter-spacing:-0.025em;max-width:720px;text-wrap:balance">Em três passos você já está usando.</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:40px">
-        <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:10px">
-          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;color:#12805C">PASSO 1</div>
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.15">Escolha mensal ou anual.</div>
-          <p style="margin:0;color:#3E4E47">R$ 19,90 no primeiro mês, depois R$ 29,90 por mês. Cancele quando quiser.</p>
-        </div>
-        <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:10px">
-          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;color:#12805C">PASSO 2</div>
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.15">Receba o link e crie sua conta.</div>
-          <p style="margin:0;color:#3E4E47">Entre com o Google ou com e-mail e senha.</p>
-        </div>
-        <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:10px">
-          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;color:#12805C">PASSO 3</div>
-          <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.15">Lance o primeiro gasto.</div>
-          <p style="margin:0;color:#3E4E47">Em poucos segundos o gráfico do mês já aparece.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PREÇO -->
-  <div id="preco" style="background:#FFFFFF;padding:96px 0">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px;align-items:center">
-      <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,48px);line-height:1.08;letter-spacing:-0.025em;text-align:center;max-width:720px;text-wrap:balance">Menos de R$ 1 por dia.</h2>
-      <div style="width:100%;max-width:880px;display:flex;flex-wrap:wrap;gap:24px;align-items:stretch">
-        <div style="flex:1 1 340px;min-width:0;background:#EEF2EF;border:2px solid #0F1B17;border-radius:28px;padding:32px;box-sizing:border-box;display:flex;flex-direction:column">
-        <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:18px">
-          <div style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#12805C">Plano mensal</div>
-          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-            <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(40px,11.5vw,60px);white-space:nowrap;line-height:1;letter-spacing:-0.03em">R$ 19,90<span style="font-size:20px;font-weight:600;letter-spacing:0;color:#3E4E47">no 1º mês</span></div>
-          </div>
-          <div style="font-size:16px;color:#3E4E47">Depois, R$ 29,90 por mês. Cancele quando quiser.</div>
-          <a class="cta" href="https://pay.kiwify.com.br/lRpdYeL" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:12px;background:#FFD84D;color:#0F1B17;font-weight:700;font-size:19px;padding:18px 24px;border-radius:16px;box-shadow:0 10px 0 -4px #C9A21B;min-height:44px;box-sizing:border-box;text-align:center">Quero o meu agora
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B17" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-                  </div>
-        </div>
-        <div style="flex:1 1 340px;min-width:0;background:#0B2B20;color:#EAF3EE;border-radius:28px;padding:32px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px">
-          <div style="align-self:flex-start;background:#FFD84D;color:#0F1B17;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Melhor valor</div>
-          <div style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#FFD84D">Plano anual</div>
-          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-            <div style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(40px,11.5vw,60px);white-space:nowrap;line-height:1;letter-spacing:-0.03em">R$ 239,90<span style="font-size:20px;font-weight:600;letter-spacing:0;color:#B8D0C4">/ano</span></div>
-          </div>
-          <div style="font-size:16px;color:#B8D0C4">Equivale a R$ 19,99 por mês. Economize R$ 108,90 no primeiro ano em relação ao plano mensal.</div>
-          <div style="font-size:16px;font-weight:600;color:#FFD84D">Pague em até 12x no cartão de crédito.</div>
-          <a class="cta" href="https://pay.kiwify.com.br/d7MQZJx" style="margin-top:auto;display:flex;align-items:center;justify-content:center;gap:12px;background:#FFD84D;color:#0F1B17;font-weight:700;font-size:19px;padding:18px 24px;border-radius:16px;box-shadow:0 10px 0 -4px #9C7D12;min-height:44px;box-sizing:border-box;text-align:center">Quero o plano anual
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B17" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-      </div>
-      <div style="font-size:15px;color:#3E4E47;text-align:center;max-width:620px"><span style="font-weight:600;color:#0F1B17">7 dias de garantia.</span> Não fez sentido para você? Peça o reembolso em até 7 dias após a primeira cobrança e devolvemos o valor.</div>
-      <div style="width:100%;max-width:880px;background:#EEF2EF;border-radius:28px;padding:32px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
-        <div style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#12805C">Em todos os planos</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 32px;font-size:17px">
-          <div style="display:flex;gap:12px;align-items:flex-start"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:3px"><path d="M5 12l5 5 9-10"/></svg><div>Lançamentos de receitas e despesas sem limite</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:3px"><path d="M5 12l5 5 9-10"/></svg><div>Parcelamento automático em até 12x</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:3px"><path d="M5 12l5 5 9-10"/></svg><div>Tetos de gasto por categoria com alerta de cor</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:3px"><path d="M5 12l5 5 9-10"/></svg><div>Gráfico por categoria e relatório mensal</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:3px"><path d="M5 12l5 5 9-10"/></svg><div>Exportação em CSV para Excel</div></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:3px"><path d="M5 12l5 5 9-10"/></svg><div>Seus dados na nuvem, em celular e computador</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div style="padding:96px 0">
-    <div style="max-width:820px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:32px">
-      <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(30px,4vw,42px);line-height:1.1;letter-spacing:-0.025em">Perguntas frequentes</h2>
-      <div style="display:flex;flex-direction:column">
-        <details style="border-top:1px solid #B9C7C0;padding:20px 0">
-          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:19px">Como funciona a cobrança?<span class="plus" style="font-size:26px;line-height:1;transition:transform .15s">+</span></summary>
-          <p style="margin:12px 0 0;color:#3E4E47">É uma assinatura mensal. O primeiro mês custa R$ 19,90 e, a partir do segundo, são R$ 29,90 por mês. Você pode cancelar quando quiser. Se preferir pagar uma vez por ano, existe o plano anual de R$ 239,90, que equivale a R$ 19,99 por mês e pode ser parcelado em até 12x no cartão de crédito.</p>
-        </details>
-        <details style="border-top:1px solid #B9C7C0;padding:20px 0">
-          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:19px">Funciona no iPhone e no Android?<span class="plus" style="font-size:26px;line-height:1;transition:transform .15s">+</span></summary>
-          <p style="margin:12px 0 0;color:#3E4E47">Sim. Ele abre no navegador do celular e do computador, e dá para instalar na tela inicial como se fosse um app.</p>
-        </details>
-        <details style="border-top:1px solid #B9C7C0;padding:20px 0">
-          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:19px">Preciso ligar minha conta do banco?<span class="plus" style="font-size:26px;line-height:1;transition:transform .15s">+</span></summary>
-          <p style="margin:12px 0 0;color:#3E4E47">Não. Você lança cada receita e cada gasto por conta própria. É isso que faz você prestar atenção no dinheiro, e seus dados bancários nunca passam pelo app.</p>
-        </details>
-        <details style="border-top:1px solid #B9C7C0;padding:20px 0">
-          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:19px">Meus dados ficam seguros?<span class="plus" style="font-size:26px;line-height:1;transition:transform .15s">+</span></summary>
-          <p style="margin:12px 0 0;color:#3E4E47">Seus lançamentos ficam salvos na nuvem, ligados ao seu login (Google ou e-mail e senha). Para ver em outro aparelho, é só entrar na mesma conta.</p>
-        </details>
-        <details style="border-top:1px solid #B9C7C0;padding:20px 0">
-          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:19px">Funciona sem internet?<span class="plus" style="font-size:26px;line-height:1;transition:transform .15s">+</span></summary>
-          <p style="margin:12px 0 0;color:#3E4E47">O app continua abrindo e guarda o que você lançar, sincronizando quando a conexão volta.</p>
-        </details>
-        <details style="border-top:1px solid #B9C7C0;border-bottom:1px solid #B9C7C0;padding:20px 0">
-          <summary style="display:flex;justify-content:space-between;align-items:center;gap:16px;font-weight:600;font-size:19px">E se eu não gostar?<span class="plus" style="font-size:26px;line-height:1;transition:transform .15s">+</span></summary>
-          <p style="margin:12px 0 0;color:#3E4E47">Você tem 7 dias de garantia na primeira cobrança. Pediu o reembolso dentro desse prazo, recebe o valor de volta.</p>
-        </details>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA FINAL -->
-  <div style="background:#0B2B20;color:#EAF3EE;padding:96px 0 40px">
-    <div style="max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:64px">
-      <div style="display:flex;flex-direction:column;gap:28px;align-items:flex-start;max-width:760px">
-        <h2 style="margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-0.03em;text-wrap:balance">Comece o próximo mês sabendo para onde cada real vai.</h2>
-        <a class="cta" href="https://pay.kiwify.com.br/lRpdYeL" style="display:inline-flex;align-items:center;gap:12px;background:#FFD84D;color:#0F1B17;font-weight:700;font-size:19px;padding:18px 28px;border-radius:16px;box-shadow:0 10px 0 -4px #9C7D12;min-height:44px;box-sizing:border-box">Quero o meu por R$ 19,90 no 1º mês
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B17" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    <div class="hero-grid">
+      <div>
+        <span class="chip">Pagamento único · Sem mensalidade</span>
+        <h1><span class="gold">Saiba pra onde vai</span><span class="white">cada real do seu salário.</span></h1>
+        <p class="sub">Anote seus gastos em segundos, lance compras parceladas uma vez só e veja o mês inteiro em um gráfico. O app avisa <b>antes</b> de você estourar o limite.</p>
+        <ul class="ticks">
+          <li>Funciona no celular e no computador</li>
+          <li>Parcelas do cartão divididas automaticamente</li>
+          <li>Tetos por categoria com alerta de cor</li>
+        </ul>
+        <a class="btn big pulse" href="https://pay.kiwify.com.br/eJtD0fZ">Quero o meu por R$ 29,90
+          <svg viewBox="0 0 24 24" fill="none" stroke="#04163f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <div style="font-size:15px;color:#B8D0C4">1º mês R$ 19,90, depois R$ 29,90 por mês. Cancele quando quiser. 7 dias de garantia.</div>
+        <p class="micro"><b>Pague uma vez.</b> 7 dias de garantia · Compra segura pelo Kiwify</p>
       </div>
-      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #2C5645;padding-top:24px;font-size:14px;color:#8FB09F">
-        <div>Controle Financeiro © 2026</div>
-        <div>Dúvidas: [ E-MAIL:grouptorres7@gmail.com]</div>
+
+      <div class="mockwrap">
+        <div class="mock" aria-label="Exemplo da tela do aplicativo">
+          <div class="mh"><span><i></i>CONTROLE FINANCEIRO</span><span>Outubro de 2026</span></div>
+          <div class="tiles">
+            <div class="tile"><i>Saldo</i><b>R$ 2.389,70</b></div>
+            <div class="tile g"><i>Entradas</i><b>R$ 4.800,00</b></div>
+            <div class="tile r"><i>Saídas</i><b>R$ 2.410,30</b></div>
+          </div>
+          <div class="mbody">
+            <div>
+              <div class="donut"><u></u></div>
+              <div class="leg">
+                <div><b style="background:#3b82f6"></b>Moradia</div><div><b style="background:#f59e0b"></b>Alimentação</div>
+                <div><b style="background:#f43f5e"></b>Crédito</div><div><b style="background:#10b981"></b>Lazer</div>
+              </div>
+            </div>
+            <div class="bars">
+              <h4>Tetos do mês</h4>
+              <div class="bar"><div class="r"><span>Alimentação</span><span>77%</span></div><div class="t"><div style="width:77%;background:#34d399"></div></div></div>
+              <div class="bar"><div class="r"><span>Lazer</span><span>92%</span></div><div class="t"><div style="width:92%;background:#f59e0b"></div></div></div>
+              <div class="bar"><div class="r"><span>Transporte</span><span style="color:#fb7185">100%</span></div><div class="t"><div style="width:100%;background:#f43f5e"></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="pricetag"><small>Pagamento único</small><strong>R$ 29,90</strong></div>
       </div>
     </div>
   </div>
+</header>
 
+<!-- FAIXA DE CONFIANÇA -->
+<div class="trust">
+  <div class="wrap">
+    <ul>
+      <li>Seus dados salvos na nuvem</li>
+      <li>Instala na tela do celular como app</li>
+      <li>Continua abrindo sem internet</li>
+      <li>Português, English e Español</li>
+    </ul>
+  </div>
 </div>
+
+<!-- DORES -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Você já passou por isso?</span>
+      <h2>Se você se reconhece em pelo menos uma, este app é pra você.</h2>
+    </div>
+    <div class="pains">
+      <div class="pain"><i>✕</i><h3>O salário entra e some</h3><p>Pix aqui, cartão ali. Quando você olha o saldo, já foi, e você não sabe pra onde.</p></div>
+      <div class="pain"><i>✕</i><h3>A parcela esquecida</h3><p>Dez vezes no cartão parece pouco, até somar todas as parcelas abertas no mesmo mês.</p></div>
+      <div class="pain"><i>✕</i><h3>A planilha abandonada</h3><p>Abrir o arquivo, achar a coluna, ajustar fórmula. Controle que dá trabalho vira controle largado.</p></div>
+      <div class="pain"><i>✕</i><h3>O app que cobra todo mês</h3><p>Pagar mensalidade só para anotar gastos não faz sentido quando o problema é gastar demais.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTO DE NÃO CONTROLAR -->
+<section class="cost">
+  <div class="wrap cost-grid">
+    <div>
+      <span class="eyebrow">A conta que ninguém faz</span>
+      <h2>R$ 10 por dia parecem nada. No ano, são R$ 3.600.</h2>
+      <p class="lead">Um lanche por aplicativo, uma assinatura esquecida, um café na rua. Ninguém sente R$ 10. Todo mundo sente R$ 3.600. O Controle Financeiro custa <b style="color:var(--gold)">R$ 29,90, uma vez</b>.</p>
+      <p class="note">Conta de exemplo: R$ 10 x 30 dias = R$ 300 por mês, e R$ 300 x 12 meses = R$ 3.600 por ano.</p>
+    </div>
+    <div class="nums">
+      <div><span>por dia</span><b>R$ 10</b></div>
+      <div><span>por mês</span><b>R$ 300</b></div>
+      <div><span>por ano</span><b>R$ 3.600</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECURSOS -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">O que você recebe</span>
+      <h2>Você anota. O app faz o resto.</h2>
+      <p class="lead">Tudo o que você precisa para organizar o dinheiro, sem tela cheia de botão e sem curso para aprender.</p>
+    </div>
+    <div class="feats">
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Lance em segundos</h3><p>Descrição, valor, categoria e data. Receita ou despesa, em poucos toques.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></div><h3>Parcelas automáticas</h3><p>Compra de R$ 2.899 em 10x? Digite uma vez. O app cria as 10 parcelas, uma em cada mês, e fecha os centavos.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg></div><h3>Tetos por categoria</h3><p>Defina quanto pode gastar em cada categoria. A barra fica amarela perto do limite e vermelha quando passa.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12A9 9 0 1 1 12 3v9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg></div><h3>Gráfico do mês</h3><p>Veja quem está comendo seu salário: moradia, mercado, lazer, crédito. Filtre por mês ou categoria.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 20h14"/></svg></div><h3>Relatório e Excel</h3><p>Imprima o relatório do mês ou exporte tudo em CSV para abrir no Excel.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-7.97A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/></svg></div><h3>Na nuvem, em qualquer aparelho</h3><p>Entre com o Google ou e-mail e veja seus dados no celular e no computador. Instala na tela inicial como um app.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PASSOS -->
+<section style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Como começar</span>
+      <h2>Em 3 passos você já está usando.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Faça a compra</h3><p>R$ 29,90, uma vez só, pelo checkout seguro do Kiwify.</p></div>
+      <div class="step"><h3>Receba o acesso</h3><p>Você recebe as instruções para entrar e cria sua conta com Google ou e-mail e senha.</p></div>
+      <div class="step"><h3>Lance o primeiro gasto</h3><p>Em poucos segundos o gráfico do mês já aparece na sua tela.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVO -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Compare</span>
+      <h2>Planilha, app com assinatura ou Controle Financeiro?</h2>
+    </div>
+    <div class="tablebox">
+      <table>
+        <thead>
+          <tr><th></th><th>Planilha</th><th>App com assinatura</th><th class="us">Controle Financeiro</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Quanto custa</th><td>Grátis, mas dá trabalho</td><td>Mensalidade, todo mês</td><td class="us">R$ 29,90, uma vez</td></tr>
+          <tr><th>Parcelas do cartão</th><td>Você calcula e digita cada uma</td><td>Depende do app</td><td class="us">Você lança uma vez, ele divide</td></tr>
+          <tr><th>Alerta de limite</th><td>Você monta as fórmulas</td><td>Depende do plano</td><td class="us">Barra que muda de cor</td></tr>
+          <tr><th>Gráfico do mês</th><td>Você monta</td><td>Depende do plano</td><td class="us">Pronto, automático</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="offer" id="preco">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Sua oferta</span>
+      <h2>Tudo isso por R$ 29,90. Uma vez.</h2>
+      <p class="lead">Sem mensalidade. Menos que um lanche, para organizar o seu dinheiro.</p>
+    </div>
+    <div class="offer-card">
+      <div class="price">
+        <small>Pagamento único</small>
+        <strong>R$ 29,90</strong>
+        <span>Sem mensalidade</span>
+        <a class="btn big pulse" href="https://pay.kiwify.com.br/eJtD0fZ">Quero o meu agora
+          <svg viewBox="0 0 24 24" fill="none" stroke="#04163f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="fine">Compra segura pelo Kiwify · 7 dias de garantia</p>
+      </div>
+      <ul class="checks">
+        <li>Receitas e despesas sem limite de lançamentos</li>
+        <li>Parcelamento automático em até 12x</li>
+        <li>Tetos de gasto por categoria com alerta de cor</li>
+        <li>Gráfico por categoria e relatório mensal</li>
+        <li>Exportação em CSV para Excel</li>
+        <li>Seus dados na nuvem, em celular e computador</li>
+        <li>Instala como app e abre sem internet</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="guar">
+      <div class="seal"><b>7</b><small>dias de garantia</small></div>
+      <div>
+        <h2>Teste sem risco.</h2>
+        <p>Instale, lance seus gastos, teste os tetos e o gráfico. Se em até 7 dias você achar que não é pra você, peça o reembolso e receba o valor de volta. Sem burocracia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Dúvidas</span>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Preciso pagar mensalidade?</summary><p>Não. O pagamento é único, de R$ 29,90.</p></details>
+      <details><summary>Funciona no iPhone e no Android?</summary><p>Sim. O app abre no navegador do celular e do computador, e dá para instalar na tela inicial como se fosse um aplicativo.</p></details>
+      <details><summary>Preciso ligar minha conta do banco?</summary><p>Não. Você lança cada receita e cada gasto por conta própria. É isso que faz você prestar atenção no dinheiro, e seus dados bancários nunca passam pelo app.</p></details>
+      <details><summary>Meus dados ficam seguros?</summary><p>Seus lançamentos ficam salvos na nuvem, ligados ao seu login (Google ou e-mail e senha). Para ver em outro aparelho, é só entrar na mesma conta.</p></details>
+      <details><summary>Funciona sem internet?</summary><p>O app continua abrindo e guarda o que você lançar, sincronizando quando a conexão volta.</p></details>
+      <details><summary>Como recebo o acesso?</summary><p>Depois da compra, você recebe as instruções para entrar. Use o mesmo e-mail da compra para criar sua conta.</p></details>
+      <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. Pediu o reembolso dentro desse prazo, recebe o valor de volta.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2>O próximo mês vai passar de qualquer jeito. Passe sabendo <em>pra onde foi cada real.</em></h2>
+    <p class="lead">R$ 29,90, uma vez. Sem mensalidade e com 7 dias de garantia.</p>
+    <a class="btn big pulse" href="https://pay.kiwify.com.br/eJtD0fZ" style="max-width:520px">Quero controlar meu dinheiro
+      <svg viewBox="0 0 24 24" fill="none" stroke="#04163f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Controle Financeiro © 2026</div>
+    <div>Dúvidas: grouptorres7@gmail.com</div>
+  </div>
+</footer>
+
+<!-- BARRA FIXA (só no celular) -->
+<div class="sticky">
+  <div><small>Pagamento único</small><strong>R$ 29,90</strong></div>
+  <a class="btn" href="https://pay.kiwify.com.br/eJtD0fZ">Quero o meu</a>
+</div>
+
 </body>
 </html>
